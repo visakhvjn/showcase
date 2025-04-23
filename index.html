@@ -159,9 +159,7 @@
 
 			async function fetchBlogs() {
 				try {
-					const response = await fetch(
-						`${corsProxy}${encodeURIComponent(mediumRssUrl)}`
-					);
+					const response = await fetch(`${mediumRssUrl}`);
 					const data = await response.json();
 
 					const parser = new DOMParser();
