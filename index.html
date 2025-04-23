@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Showcase</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+			header {
+				display: flex;
+				align-items: center;
+				padding: 20px;
+				background-color: #f4f4f4;
+			}
+			header img {
+				border-radius: 50%;
+				width: 150px;
+				height: 150px;
+				margin-right: 20px;
+			}
+			section {
+				padding: 20px;
+			}
+			section h2 {
+				margin-top: 0;
+			}
+			.card-container {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 20px;
+			}
+			.card {
+				border: 1px solid #ddd;
+				border-radius: 8px;
+				padding: 15px;
+				margin: 10px 0;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+				flex: 1 1 calc(33.333% - 20px);
+				box-sizing: border-box;
+			}
+			@media (max-width: 768px) {
+				.card {
+					flex: 1 1 calc(50% - 20px);
+				}
+			}
+			@media (max-width: 480px) {
+				.card {
+					flex: 1 1 100%;
+				}
+			}
+			.card h3 {
+				margin: 0 0 10px;
+			}
+			.card p {
+				margin: 0;
+			}
+			.button {
+				display: inline-block;
+				margin-top: 10px;
+				padding: 10px 15px;
+				background-color: #eee;
+				color: #000;
+				text-decoration: none;
+				border-radius: 5px;
+				font-size: 14px;
+			}
+			.button:hover {
+				background-color: #000;
+				color: #fff;
+			}
+			.button.disabled {
+				background-color: #ccc;
+				color: #666;
+				pointer-events: none;
+				cursor: not-allowed;
+			}
+			.blog-list {
+				list-style-type: none;
+				padding: 0;
+			}
+			.blog-list li {
+				margin-bottom: 15px;
+			}
+			.blog-list a {
+				font-weight: bold;
+				color: #007bff;
+				text-decoration: none;
+			}
+			.blog-list a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<img
+				src="https://media.licdn.com/dms/image/v2/D4D03AQGGLLXuSjwYwA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1714325458701?e=1750896000&v=beta&t=omNncWOMvDOa7PHRjGfVtTR45I2YyiAfjTTSi3jSMaM"
+				alt="My Lovely Picture"
+			/>
+			<div class="description">
+				<h1>Visakh Vijayan</h1>
+				<p>
+					👋 Hi, I’m Visakh — a passionate Software Engineer from Kerala, India.
+					With a deep interest in backend systems, infrastructure, and scalable
+					architecture, I build robust applications that solve real-world
+					problems. I specialize in Node.js, TypeScript, and modern JavaScript
+					frameworks. My work reflects a strong focus on clean code,
+					performance, and long-term maintainability. When I’m not writing code,
+					I’m exploring DevOps, contributing to side projects, learning new
+					technologies, or planning my next bike trip. I believe in constantly
+					leveling up — both in tech and in life. 💡 “Everything I’ve built,
+					I’ve built from scratch — and that’s how I like it.” <br /><br />
+					Check out the projects below to see what I’ve been working on.
+				</p>
+			</div>
+		</header>
+		<section id="webservices">
+			<h2>Web Services</h2>
+			<div class="card-container"></div>
+		</section>
+		<section id="apps">
+			<h2>Web Apps</h2>
+			<div class="card-container"></div>
+		</section>
+		<section id="packages">
+			<h2>Packages</h2>
+			<div class="card-container"></div>
+		</section>
+		<section id="blogs">
+			<h2>Latest Blogs</h2>
+			<ul class="blog-list"></ul>
+		</section>
+		<script>
+			const dataUrl = './data.json';
+			const mediumRssUrl = 'https://medium.com/feed/@vjnvisakh';
+			const corsProxy = 'https://api.allorigins.win/get?url=';
+
+			async function loadData() {
+				try {
+					const response = await fetch(dataUrl);
+					const data = await response.json();
+
+					toggleSectionVisibility('webservices', data.webservices);
+					toggleSectionVisibility('apps', data.apps);
+					toggleSectionVisibility('packages', data.packages);
+				} catch (error) {
+					console.error('Error loading data:', error);
+				}
+			}
+
+			async function fetchBlogs() {
+				try {
+					const response = await fetch(
+						`${corsProxy}${encodeURIComponent(mediumRssUrl)}`
+					);
+					const data = await response.json();
+
+					const parser = new DOMParser();
+					const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+					const items = xmlDoc.querySelectorAll('item');
+
+					const blogs = Array.from(items).map((item) => ({
+						title: item.querySelector('title')?.textContent ?? '',
+						link: item.querySelector('link')?.textContent ?? '',
+						description: stripImages(
+							item.querySelector('description')?.textContent ?? ''
+						),
+					}));
+
+					const randomBlogs = getRandomItems(blogs, 5);
+					populateBlogs(randomBlogs);
+				} catch (error) {
+					console.error('Error fetching blogs:', error);
+				}
+			}
+
+			function getRandomItems(array, count) {
+				const shuffled = array.sort(() => 0.5 - Math.random());
+				return shuffled.slice(0, count);
+			}
+
+			function stripImages(description) {
+				// Remove any <img> tags from the description
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = description;
+				tempDiv.querySelectorAll('img').forEach((img) => img.remove());
+				return tempDiv.textContent || tempDiv.innerText || '';
+			}
+
+			function toggleSectionVisibility(sectionId, items) {
+				const section = document.getElementById(sectionId);
+				if (items && items.length > 0) {
+					populateSection(sectionId, items);
+					section.style.display = 'block';
+				} else {
+					section.style.display = 'none';
+				}
+			}
+
+			function populateSection(sectionId, items) {
+				const container = document.querySelector(
+					`#${sectionId} .card-container`
+				);
+				items.forEach((item) => {
+					const card = document.createElement('div');
+					card.className = 'card';
+					card.innerHTML = `
+                    <h3>${item.name} (v${item.version})</h3>
+                    <p>${item.description}</p>
+                    <a href="${
+											item.demoLink || '#'
+										}" target="_blank" class="button ${
+						!item.demoLink ? 'disabled' : ''
+					}">Demo</a>
+                    <a href="${
+											item.repositoryLink || '#'
+										}" target="_blank" class="button ${
+						!item.repositoryLink ? 'disabled' : ''
+					}">Repository</a>
+                `;
+					container.appendChild(card);
+				});
+			}
+
+			function populateBlogs(blogs) {
+				const list = document.querySelector('#blogs .blog-list');
+				blogs.forEach((blog) => {
+					const listItem = document.createElement('li');
+					listItem.innerHTML = `
+						<a href="${blog.link}" target="_blank">${blog.title}</a>
+						<p>${blog.description}</p>
+					`;
+					list.appendChild(listItem);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				loadData();
+				fetchBlogs();
+			});
+		</script>
+	</body>
+</html>

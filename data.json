@@ -1,0 +1,63 @@
+{
+	"webservices": [],
+	"apps": [
+		{
+			"name": "Typing Master",
+			"description": "A web-based typing tutor that offers personalized lessons and exercises tailored to your skill level, helping you improve typing speed and accuracy.",
+			"version": "1.0.0",
+			"demoLink": "https://the-typing-master.netlify.app/",
+			"repositoryLink": "https://github.com/visakhvjn/typing-master"
+		},
+		{
+			"name": "AI-Powered Trivia",
+			"description": "An interactive trivia game that leverages AI algorithms to generate engaging questions, offering users a dynamic and immersive quiz experience.",
+			"version": "1.0.0",
+			"demoLink": "https://trivia-ai.netlify.app/",
+			"repositoryLink": "https://github.com/visakhvjn/ai-powered-trivia"
+		},
+		{
+			"name": "NodeGuru",
+			"description": "NodeGuru is a lightweight web app powered by OpenAI, designed to help developers master and revise Node.js concepts effortlessly.",
+			"version": "1.0.0",
+			"demoLink": "https://nodejs-concepts.netlify.app/",
+			"repositoryLink": "https://github.com/visakhvjn/ai-nodejs-concept-fe"
+		},
+		{
+			"name": "LinkedIn Commentor",
+			"description": "A Chrome extension that reads the content of a LinkedIn post, generates a relevant comment using OpenAI, and allows you to insert or copy the comment.",
+			"version": "1.0.0",
+			"demoLink": "https://www.youtube.com/watch?v=IlaxgQtLr9A&feature=youtu.be",
+			"repositoryLink": "https://github.com/visakhvjn/linkedin-commentor"
+		},
+		{
+			"name": "Daily Programming Practice",
+			"description": "A web application that delivers daily programming challenges to help users enhance their coding skills through consistent practice.",
+			"version": "1.0.0",
+			"demoLink": "https://daily-programming-practice.onrender.com/",
+			"repositoryLink": "https://github.com/visakhvjn/daily-programming-practice"
+		},
+		{
+			"name": "Sudoku Challenge",
+			"description": "A web-based Sudoku game built with JavaScript, HTML, and CSS, offering an interactive interface for puzzle enthusiasts.",
+			"version": "1.0.0",
+			"demoLink": "https://sudokuapp1.netlify.app/",
+			"repositoryLink": "https://github.com/visakhvjn/sudoku-frontend"
+		}
+	],
+	"packages": [
+		{
+			"name": "HeadlessTodo",
+			"description": "HeadlessTodo is a headless TODO management system built with a focus on clean APIs and easy front-end integration. It’s powered by Node.js and uses SQLite3 for a fully portable, file-based database, making setup and deployment ultra-simple.Built for developers who want to plug in a ready-to-use task management backend into any frontend — React, Vue, mobile apps, or even CLI tools.",
+			"version": "1.0.0",
+			"demoLink": "https://www.npmjs.com/package/@vjnvisakh/headless-todo",
+			"repositoryLink": ""
+		},
+		{
+			"name": "Convert CSV Files to SQL & NoSQL",
+			"description": "@vjnvisakh/csv2db is a lightweight Node.js utility that transforms CSV files into ready-to-use SQL or NoSQL insert statements. Ideal for developers needing to seed databases or migrate data without manual scripting.",
+			"version": "1.0.4",
+			"demoLink": "https://www.npmjs.com/package/@vjnvisakh/csv2db",
+			"repositoryLink": ""
+		}
+	]
+}
