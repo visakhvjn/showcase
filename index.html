@@ -140,9 +140,8 @@
 		</section>
 		<script>
 			const dataUrl = './data.json';
-			const mediumRssUrl = 'https://medium.com/feed/@vjnvisakh';
-			// const corsProxy = 'https://api.allorigins.win/get?url=';
-			const corsProxy = '';
+			const mediumRssUrlProxy =
+				'https://showcase-be.onrender.com/api/medium-feed';
 
 			async function loadData() {
 				try {
@@ -159,11 +158,13 @@
 
 			async function fetchBlogs() {
 				try {
-					const response = await fetch(`${mediumRssUrl}`);
-					const data = await response.json();
+					const response = await fetch(`${mediumRssUrlProxy}`);
+					const xmlText = await response.text();
 
+					// Parse the XML string into a document
 					const parser = new DOMParser();
-					const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+					const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
+
 					const items = xmlDoc.querySelectorAll('item');
 
 					const blogs = Array.from(items).map((item) => ({
