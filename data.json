@@ -2,6 +2,20 @@
 	"webservices": [],
 	"apps": [
 		{
+			"name": "The AI Blog",
+			"description": "A self sustaining blog using AI",
+			"version": "1.0.0",
+			"demoLink": "https://the-ai-blog.onrender.com/",
+			"repositoryLink": "https://github.com/visakhvjn/the-ai-blog"
+		},
+		{
+			"name": "Quiz App",
+			"description": "A trivia app generated using OpenAI.",
+			"version": "1.0.0",
+			"demoLink": "https://express-quiz-app-4qqz.onrender.com/",
+			"repositoryLink": "https://github.com/visakhvjn/express-quiz-app"
+		},
+		{
 			"name": "Typing Master",
 			"description": "A web-based typing tutor that offers personalized lessons and exercises tailored to your skill level, helping you improve typing speed and accuracy.",
 			"version": "1.0.0",
